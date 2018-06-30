@@ -14,7 +14,14 @@ var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
+/*
+// Hardcode a development database. 
 var mongoDB = 'mongodb://dbuser:dbpassword1@ds018168.mlab.com:18168/local_library';
+*/
+// To be able to have a different database for production and development,
+// get the database URI from the OS environment (if it has been defined),
+// and otherwise use our development database.
+var mongoDB = process.env.MONGODB_URI || 'mongodb://dbuser:dbpassword1@ds018168.mlab.com:18168/local_library';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
